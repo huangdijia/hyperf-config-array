@@ -1,4 +1,4 @@
-name: PHPUnit for Jet Client
+name: PHPUnit for Hyperf config-array
 
 on: [push, pull_request]
 
