@@ -36,6 +36,7 @@ jobs:
           cd $PROJECT_HOME
           composer config repositories.hyperf-config-array path $LIB_HOME
           composer require "huangdijia/hyperf-config-array:*@dev"
+          composer u -o
           php bin/hyperf.php vendor:publish hyperf-config-array
           cp $LIB_HOME/tests/IndexController.php.dist $PROJECT_HOME/app/Controller/IndexController.php
           composer u -o
