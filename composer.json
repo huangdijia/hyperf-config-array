@@ -1,5 +1,5 @@
 {
-    "name": "huangdijia/hyperf-config-any",
+    "name": "huangdijia/hyperf-config-array",
     "type": "library",
     "require": {
         "php": ">=7.2",
@@ -18,7 +18,7 @@
     "description": "Config extension for Hyperf.",
     "autoload": {
         "psr-4": {
-            "Huangdijia\\ConfigAny\\": "src/"
+            "Huangdijia\\ConfigArray\\": "src/"
         }
     },
     "license": "MIT",
@@ -36,7 +36,7 @@
     },
     "extra": {
         "hyperf": {
-            "config": "Huangdijia\\ConfigAny\\ConfigProvider"
+            "config": "Huangdijia\\ConfigArray\\ConfigProvider"
         }
     }
 }
