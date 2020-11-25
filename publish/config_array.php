@@ -9,7 +9,6 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-array/blob/main/LICENSE
  */
-
 return [
     'enable'                 => env('CONFIG_ARRAY_ENABLE', false),
     'interval'               => env('CONFIG_ARRAY_INTERVAL', 5),

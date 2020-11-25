@@ -103,8 +103,6 @@ class ConfigFetcherProcess extends AbstractProcess
                 }
             }
 
-            // $this->logger->info(sprintf('Config [%s] updating.', $this->config->get('config_array.prefix')));
-
             sleep($this->config->get('config_array.interval', 5));
         }
     }
