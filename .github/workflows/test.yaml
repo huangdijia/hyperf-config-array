@@ -31,8 +31,9 @@ jobs:
           echo $LIB_HOME
           PROJECT_NAME=hyperf-demo
           PROJECT_HOME=$HOME/$PROJECT_NAME
-          cd $PROJECT_HOME
+          cd $HOME
           composer create-project hyperf/hyperf-skeleton $PROJECT_NAME
+          cd $PROJECT_HOME
           composer config repositories.hyperf-config-array path $LIB_HOME
           composer require "huangdijia/hyperf-config-array:*@dev"
           php bin/hyperf.php vendor:publish hyperf-config-array
