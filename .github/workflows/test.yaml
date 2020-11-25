@@ -38,7 +38,7 @@ jobs:
           echo "Install package"
           composer config repositories.hyperf-config-array path $PACKAGE_HOME
           composer require "huangdijia/hyperf-config-array:*@dev" -o
-          php bin/hyperf.php vendor:publish hyperf-config-array
+          php bin/hyperf.php vendor:publish huangdijia/hyperf-config-array
           cp $PACKAGE_HOME/tests/IndexController.php.dist $PROJECT_HOME/app/Controller/IndexController.php
           composer dump-autoload -o
           echo "Service start"
