@@ -26,12 +26,13 @@ jobs:
       - name: Setup Hyperf Demo
         run: |
           php -m
-          LIB_HOME=$(pwd)
           echo $HOME
+          LIB_HOME=$(pwd)
+          echo $LIB_HOME
           PROJECT_NAME=hyperf-demo
           PROJECT_HOME=$HOME/$PROJECT_NAME
-          composer create-project hyperf/hyperf-skeleton $PROJECT_NAME
           cd $PROJECT_HOME
+          composer create-project hyperf/hyperf-skeleton $PROJECT_NAME
           composer config repositories.hyperf-config-array path $LIB_HOME
           composer require "huangdijia/hyperf-config-array:*@dev"
           php bin/hyperf.php vendor:publish hyperf-config-array
