@@ -11,9 +11,9 @@ declare(strict_types=1);
  */
 
 return [
-    'enable'                 => env('CONFIG_ANY_ENABLE', false),
-    'interval'               => env('CONFIG_ANY_INTERVAL', 5),
-    'use_standalone_process' => true,
+    'enable'                 => env('CONFIG_ARRAY_ENABLE', false),
+    'interval'               => env('CONFIG_ARRAY_INTERVAL', 5),
+    'use_standalone_process' => env('CONFIG_ARRAY_USE_STANDALONE_PROCESS', true),
     'source'                 => \Huangdijia\ConfigArray\Source\DemoSource::class,
     'mapping'                => [
         // source => target

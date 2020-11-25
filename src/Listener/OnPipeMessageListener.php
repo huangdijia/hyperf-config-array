@@ -54,7 +54,7 @@ class OnPipeMessageListener implements ListenerInterface
      */
     public function process(object $event)
     {
-        if (! $this->config->get('config_any.enable', false)) {
+        if (! $this->config->get('config_array.enable', false)) {
             return;
         }
 
@@ -62,7 +62,7 @@ class OnPipeMessageListener implements ListenerInterface
             /** @var PipeMessage $data */
             $data = $event->data;
 
-            $mapping            = $this->config->get('config_any.mapping');
+            $mapping            = $this->config->get('config_array.mapping');
             $configurations     = $data->configurations;
 
             if (is_string($mapping)) {

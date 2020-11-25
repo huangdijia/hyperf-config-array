@@ -56,8 +56,8 @@ class ConfigFetcherProcess extends AbstractProcess
         $this->config = $container->get(ConfigInterface::class);
         $this->logger = $container->get(StdoutLoggerInterface::class);
 
-        if (class_exists($this->config->get('config_any.source'))) {
-            $this->source = make($this->config->get('config_any.source'));
+        if (class_exists($this->config->get('config_array.source'))) {
+            $this->source = make($this->config->get('config_array.source'));
         }
     }
 
@@ -70,9 +70,9 @@ class ConfigFetcherProcess extends AbstractProcess
     public function isEnable($server): bool
     {
         return $server instanceof Server
-            && $this->config->get('config_any.enable', false)
-            && $this->config->get('config_any.use_standalone_process', true)
-            && in_array(SourceInterface::class, class_implements($this->config->get('config_any.source')));
+            && $this->config->get('config_array.enable', false)
+            && $this->config->get('config_array.use_standalone_process', true)
+            && in_array(SourceInterface::class, class_implements($this->config->get('config_array.source')));
     }
 
     public function handle(): void
@@ -103,9 +103,9 @@ class ConfigFetcherProcess extends AbstractProcess
                 }
             }
 
-            // $this->logger->info(sprintf('Config [%s] updating.', $this->config->get('config_any.prefix')));
+            // $this->logger->info(sprintf('Config [%s] updating.', $this->config->get('config_array.prefix')));
 
-            sleep($this->config->get('config_any.interval', 5));
+            sleep($this->config->get('config_array.interval', 5));
         }
     }
 

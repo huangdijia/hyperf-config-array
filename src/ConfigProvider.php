@@ -41,9 +41,9 @@ class ConfigProvider
             'publish' => [
                 [
                     'id'          => 'config',
-                    'description' => 'The config for config_any.',
-                    'source'      => __DIR__ . '/../publish/config_any.php',
-                    'destination' => BASE_PATH . '/config/autoload/config_any.php',
+                    'description' => 'The config for config_array.',
+                    'source'      => __DIR__ . '/../publish/config_array.php',
+                    'destination' => BASE_PATH . '/config/autoload/config_array.php',
                 ],
             ],
         ];
