@@ -42,7 +42,7 @@ jobs:
           cp $PACKAGE_HOME/tests/IndexController.php.dist $PROJECT_HOME/app/Controller/IndexController.php
           composer dump-autoload -o
           echo "Service start"
-          php -d swoole.use_shortname=Off bin/hyperf.php start
+          php -d swoole.use_shortname=Off bin/hyperf.php start &
       - name: Run Analyse
         run: |
           composer analyse src
