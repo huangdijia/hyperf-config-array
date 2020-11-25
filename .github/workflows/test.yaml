@@ -26,11 +26,18 @@ jobs:
       - name: Setup Hyperf Demo
         run: |
           php -m
-          echo $(pwd)
+          LIB_HOME=$(pwd)
           echo $HOME
-          # composer config repositories.hyperf-config-array path $HOME/hyperf-config-array
-          # composer require "huangdijia/hyperf-config-array:*@dev"
-          # php bin/hyperf.php vendor:publish hyperf-config-array
+          PROJECT_NAME=hyperf-demo
+          PROJECT_HOME=$HOME/$PROJECT_NAME
+          composer create-project hyperf/hyperf-skeleton $PROJECT_NAME
+          cd $PROJECT_HOME
+          composer config repositories.hyperf-config-array path $LIB_HOME
+          composer require "huangdijia/hyperf-config-array:*@dev"
+          php bin/hyperf.php vendor:publish hyperf-config-array
+          cp $LIB_HOME/tests/IndexController.php.dist $PROJECT_HOME/app/Controller/IndexController.php
+          composer u -o
+          php -d swoole.use_shortname=Off bin/hyperf.php start
       - name: Run Analyse
         run: |
           composer analyse src
