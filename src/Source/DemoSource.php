@@ -19,7 +19,7 @@ class DemoSource implements SourceInterface
     {
         return [
             'bar' => [
-                'foo' => 'some value',
+                'foo' => date('Y-m-d'),
             ],
         ];
     }
