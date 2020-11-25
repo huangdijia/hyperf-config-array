@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
+use Huangdijia\ConfigArray\Source\DemoSource;
+
 /**
  * This file is part of Smsease.
  *
@@ -13,5 +16,9 @@ return [
     'enable'                 => env('CONFIG_ANY_ENABLE', false),
     'interval'               => env('CONFIG_ANY_INTERVAL', 5),
     'use_standalone_process' => true,
-    'source'                 => null,
+    'source'                 => DemoSource::class,
+    'mapping'                => [
+        // source => target
+        'bar.foo' => 'bar.foo',
+    ],
 ];

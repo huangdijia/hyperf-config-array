@@ -9,9 +9,9 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-any/blob/main/LICENSE
  */
-namespace Huangdijia\ConfigAny\Listener;
+namespace Huangdijia\ConfigArray\Listener;
 
-use Huangdijia\ConfigAny\SourceInterface;
+use Huangdijia\ConfigArray\SourceInterface;
 use Hyperf\Command\Event\BeforeHandle;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -45,7 +45,12 @@ class BootProcessListener implements ListenerInterface
     {
         $this->config = $container->get(ConfigInterface::class);
         $this->logger = $container->get(StdoutLoggerInterface::class);
-        $this->source = $container->get(SourceInterface::class);
+
+        $sourceClass = $this->config->get('config_any.source');
+
+        if (class_exists($sourceClass)) {
+            $this->source = make($sourceClass);
+        }
     }
 
     public function listen(): array
@@ -61,6 +66,10 @@ class BootProcessListener implements ListenerInterface
     public function process(object $event)
     {
         if (! $this->config->get('config_any.enable', false)) {
+            return;
+        }
+
+        if (! ($this->source instanceof SourceInterface)) {
             return;
         }
 
@@ -97,11 +106,18 @@ class BootProcessListener implements ListenerInterface
 
     protected function updateConfig(array $config)
     {
-        $key            = $this->config->get('config_any.prefix');
-        $configurations = $this->format($config);
+        $mapping            = $this->config->get('config_any.mapping');
+        $configurations     = $this->format($config);
 
-        $this->config->set($key, $configurations);
-        $this->logger->debug(sprintf('Config [%s] is updated', $key));
+        if (is_string($mapping)) {
+            $this->config->set($mapping, $configurations);
+            $this->logger->debug(sprintf('Config [%s] is updated', $mapping));
+        } elseif (is_array($mapping)) {
+            foreach ($mapping as $source => $key) {
+                $this->config->set((string) $key, data_get($configurations, $source));
+                $this->logger->debug(sprintf('Config [%s] is updated', $key));
+            }
+        }
     }
 
     /**

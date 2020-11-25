@@ -9,19 +9,17 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-any/blob/main/LICENSE
  */
-namespace Huangdijia\ConfigAny;
+namespace Huangdijia\ConfigArray;
 
-use Huangdijia\ConfigAny\Listener\BootProcessListener;
-use Huangdijia\ConfigAny\Listener\OnPipeMessageListener;
-use Huangdijia\ConfigAny\Process\ConfigFetcherProcess;
+use Huangdijia\ConfigArray\Listener\BootProcessListener;
+use Huangdijia\ConfigArray\Listener\OnPipeMessageListener;
+use Huangdijia\ConfigArray\Process\ConfigFetcherProcess;
 
 class ConfigProvider
 {
     public function __invoke(): array
     {
         defined('BASE_PATH') or define('BASE_PATH', __DIR__ . '/../../../');
-
-        var_dump($this->config->get('config_any'));
 
         return [
             'dependencies' => [

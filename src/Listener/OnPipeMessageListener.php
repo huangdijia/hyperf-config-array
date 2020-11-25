@@ -9,9 +9,9 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-any/blob/main/LICENSE
  */
-namespace Huangdijia\ConfigAny\Listener;
+namespace Huangdijia\ConfigArray\Listener;
 
-use Huangdijia\ConfigAny\PipeMessage;
+use Huangdijia\ConfigArray\PipeMessage;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Event\Contract\ListenerInterface;
@@ -61,10 +61,19 @@ class OnPipeMessageListener implements ListenerInterface
         if (property_exists($event, 'data') && $event->data instanceof PipeMessage) {
             /** @var PipeMessage $data */
             $data = $event->data;
-            $key  = $this->config->get('config_any.prefix', 'any');
 
-            $this->config->set($key, $data->configurations);
-            $this->logger->debug(sprintf('Config [%s] is updated', $key));
+            $mapping            = $this->config->get('config_any.mapping');
+            $configurations     = $data->configurations;
+
+            if (is_string($mapping)) {
+                $this->config->set($mapping, $configurations);
+                $this->logger->debug(sprintf('Config [%s] is updated', $mapping));
+            } elseif (is_array($mapping)) {
+                foreach ($mapping as $source => $key) {
+                    $this->config->set((string) $key, data_get($configurations, $source));
+                    $this->logger->debug(sprintf('Config [%s] is updated', $key));
+                }
+            }
         }
     }
 }

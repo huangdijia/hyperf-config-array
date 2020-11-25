@@ -9,10 +9,10 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-any/blob/main/LICENSE
  */
-namespace Huangdijia\ConfigAny\Process;
+namespace Huangdijia\ConfigArray\Process;
 
-use Huangdijia\ConfigAny\PipeMessage;
-use Huangdijia\ConfigAny\SourceInterface;
+use Huangdijia\ConfigArray\PipeMessage;
+use Huangdijia\ConfigArray\SourceInterface;
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Process\AbstractProcess;
@@ -53,9 +53,12 @@ class ConfigFetcherProcess extends AbstractProcess
     {
         parent::__construct($container);
 
-        $this->source = $container->get(SourceInterface::class);
         $this->config = $container->get(ConfigInterface::class);
         $this->logger = $container->get(StdoutLoggerInterface::class);
+
+        if (class_exists($this->config->get('config_any.source'))) {
+            $this->source = make($this->config->get('config_any.source'));
+        }
     }
 
     public function bind($server): void
@@ -68,7 +71,8 @@ class ConfigFetcherProcess extends AbstractProcess
     {
         return $server instanceof Server
             && $this->config->get('config_any.enable', false)
-            && $this->config->get('config_any.use_standalone_process', true);
+            && $this->config->get('config_any.use_standalone_process', true)
+            && in_array(SourceInterface::class, class_implements($this->config->get('config_any.source')));
     }
 
     public function handle(): void
@@ -78,6 +82,7 @@ class ConfigFetcherProcess extends AbstractProcess
 
             if ($config !== $this->cacheConfig) {
                 $this->cacheConfig = $config;
+
                 $workerCount       = $this->server->setting['worker_num'] + $this->server->setting['task_worker_num'] - 1;
                 $pipeMessage       = new PipeMessage($this->format($config));
 
@@ -91,11 +96,14 @@ class ConfigFetcherProcess extends AbstractProcess
                 /** @var \Swoole\Process $process */
                 foreach ($processes as $process) {
                     $result = $process->exportSocket()->send($string, 10);
+
                     if ($result === false) {
                         $this->logger->error('Configuration synchronization failed. Please restart the server.');
                     }
                 }
             }
+
+            // $this->logger->info(sprintf('Config [%s] updating.', $this->config->get('config_any.prefix')));
 
             sleep($this->config->get('config_any.interval', 5));
         }

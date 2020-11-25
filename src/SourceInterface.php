@@ -9,7 +9,7 @@ declare(strict_types=1);
  * @contact  huangdijia@gmail.com
  * @license  https://github.com/huangdijia/hyperf-config-any/blob/main/LICENSE
  */
-namespace Huangdijia\ConfigAny;
+namespace Huangdijia\ConfigArray;
 
 interface SourceInterface
 {
