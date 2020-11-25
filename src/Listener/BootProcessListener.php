@@ -48,7 +48,7 @@ class BootProcessListener implements ListenerInterface
 
         $sourceClass = $this->config->get('config_array.source');
 
-        if (class_exists($sourceClass)) {
+        if ($sourceClass && class_exists($sourceClass)) {
             $this->source = make($sourceClass);
         }
     }

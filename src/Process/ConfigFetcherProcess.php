@@ -56,7 +56,7 @@ class ConfigFetcherProcess extends AbstractProcess
         $this->config = $container->get(ConfigInterface::class);
         $this->logger = $container->get(StdoutLoggerInterface::class);
 
-        if (class_exists($this->config->get('config_array.source'))) {
+        if ($this->config->get('config_array.source') && class_exists($this->config->get('config_array.source'))) {
             $this->source = make($this->config->get('config_array.source'));
         }
     }
