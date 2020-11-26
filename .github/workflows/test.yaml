@@ -23,7 +23,7 @@ jobs:
           coverage: none
       - name: Setup Packages
         run: composer update -o
-      - name: Setup Hyperf Demo
+      - name: Setup Hyperf Project
         run: |
           php -m
           echo $HOME
@@ -44,7 +44,6 @@ jobs:
           echo "Service start"
           php -d swoole.use_shortname=Off bin/hyperf.php start &
           sleep 10
-          curl http://127.0.0.1:9501
       - name: Run Analyse
         run: |
           composer analyse src
