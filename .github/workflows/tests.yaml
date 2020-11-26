@@ -1,4 +1,4 @@
-name: PHPUnit for Hyperf config-array
+name: tests
 
 on: [push, pull_request]
 
