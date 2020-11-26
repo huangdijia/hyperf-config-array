@@ -44,7 +44,7 @@ jobs:
           echo "Service start"
           php -d swoole.use_shortname=Off bin/hyperf.php start &
           sleep 10
-          curl http://localhost:9501
+          curl http://127.0.0.1:9501
       - name: Run Analyse
         run: |
           composer analyse src
