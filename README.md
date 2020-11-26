@@ -1,5 +1,6 @@
 # Hyperf config-array
 
+[![Latest Test](https://github.com/laravel/passport/workflows/tests/badge.svg)](https://github.com/laravel/passport/actions)
 [![Latest Stable Version](https://poser.pugx.org/huangdijia/hyperf-config-array/version.png)](https://packagist.org/packages/huangdijia/hyperf-config-array)
 [![Total Downloads](https://poser.pugx.org/huangdijia/hyperf-config-array/d/total.png)](https://packagist.org/packages/huangdijia/hyperf-config-array)
 [![GitHub license](https://img.shields.io/github/license/huangdijia/hyperf-config-array)](https://github.com/huangdijia/hyperf-config-array)
