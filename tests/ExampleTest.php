@@ -19,7 +19,7 @@ class ExampleTest extends TestCase
 {
     public function testExample()
     {
-        $url = 'http://127.0.0.1:9501';
+        $url     = 'http://127.0.0.1:9501';
         $content = file_get_contents($url);
 
         $this->assertSame(date('Y-m-d'), $content);
